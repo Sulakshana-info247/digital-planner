@@ -1,5 +1,6 @@
 // client/src/components/Goals.js
 import React, { useState, useEffect } from 'react';
+import { format, parse} from "date-fns";
 
 const Goals = () => {
   const [newGoal, setNewGoal] = useState('');
@@ -35,7 +36,7 @@ const Goals = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: newGoal , targetDate: targetDate}),
+        body: JSON.stringify({ text: newGoal , targetDate: parse(targetDate, "MMMM dd, yyyy") }),
       });
 
       if (response.ok) {
@@ -55,7 +56,7 @@ const Goals = () => {
 
   return (
     <div className='Goals'>
-      <h2>Goals Page</h2>
+      <h2>Set your Goals and time to track your progress </h2>
       <div>
         <input
           type="text"
