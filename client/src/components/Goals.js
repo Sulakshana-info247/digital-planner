@@ -1,6 +1,6 @@
 // client/src/components/Goals.js
 import React, { useState, useEffect } from 'react';
-import { format, parse} from "date-fns";
+import Goal from './Goal';
 
 const Goals = () => {
   const [newGoal, setNewGoal] = useState('');
@@ -30,13 +30,14 @@ const Goals = () => {
 
   const handleAddGoal = async () => {
     try {
+      console.log(targetDate)
       // Make a POST request to add a new goal
       const response = await fetch(`${URL}/api/goals`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: newGoal , targetDate: parse(targetDate, "MMMM dd, yyyy") }),
+        body: JSON.stringify({ text: newGoal , targetDate: targetDate }),
       });
 
       if (response.ok) {
@@ -53,6 +54,10 @@ const Goals = () => {
       console.error('Error adding goal:', error);
     }
   };
+
+  const tableContent = goals?.length
+        ? goals.map (goal => <Goal goal={goal}  key={goal?.id}/>)
+        : null
 
   return (
     <div className='Goals'>
@@ -71,11 +76,19 @@ const Goals = () => {
         />
         <button onClick={handleAddGoal}>Add Goal</button>
       </div>
-      <ul>
-        {goals.map((goal) => (
-          <li key={goal._id}>{goal.text}  - {goal.targetDate}</li>
-        ))}
-      </ul>
+      <table className='goalsTable'>
+        <thead>
+          <tr>
+            <th>Goal</th>
+            <th>Target</th>
+            <th style={{width:'20%'}}> Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+      {tableContent}
+       
+       </tbody>
+    </table>
     </div>
   );
 };

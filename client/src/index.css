@@ -139,3 +139,23 @@ ul li::before {
   content: "\200B";
 }
 
+table{
+  width: 100%;
+  padding: 2px ;
+  margin-top: 2rem;
+  border: 2px solid;
+  border-color: #333;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th{
+  height: 50%;
+}
+
+th,td{
+  border: 1px solid;
+  border-color: #333;
+  font-size: 12px;
+}
+

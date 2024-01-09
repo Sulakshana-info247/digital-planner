@@ -2,7 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser'); // Middleware for parsing JSON in request body
-const goalsRoutes = require('./routes/goals');
+const goalsRoutes = require('./routes/goalsRoute');
 const path = require('path');
 const cors = require('cors');
 

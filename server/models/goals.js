@@ -1,4 +1,5 @@
 // server/models/goals.js
+
 const mongoose = require('mongoose');
 
 const goalSchema = new mongoose.Schema({
@@ -6,14 +7,11 @@ const goalSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
   targetDate: {
     type: Date,
   }
-});
+}
+);
 
 const Goals = mongoose.model('Goals', goalSchema);
 
@@ -22,8 +20,8 @@ const Goals = mongoose.model('Goals', goalSchema);
 // Create a new goal
 Goals.createGoal = async (text,targetDate) => {
   try {
-    //console.log(text);
-    const newGoal = new Goals({ text,targetDate });
+    console.log(text);
+    const newGoal = new Goals({text,targetDate });
     await newGoal.save();
     return newGoal;
   } catch (error) {
@@ -43,12 +41,11 @@ Goals.getAllGoals = async () => {
 
 // Update a goal by ID
 Goals.updateGoalById = async (id, newText, newTargetDate) => {
+  
   try {
     const updatedGoal = await Goals.findByIdAndUpdate(
       id,
-      { text: newText },
-      {targetDate : targetDate},
-      { new: true }
+      { "$set": { "text": newText , "targetDate" : newTargetDate}}
     );
     return updatedGoal;
   } catch (error) {
